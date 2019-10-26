@@ -2,8 +2,8 @@
 package componentes;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -13,7 +13,8 @@ import javax.swing.text.MaskFormatter;
 public class MeuCampoData extends JFormattedTextField implements MeuComponente {
     private boolean obrigatorio;
     private String dica;
-    private boolean validacao;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+   // private boolean validacao;
     
     public MeuCampoData(boolean obrigatorio, String dica){
         try{
@@ -28,18 +29,18 @@ public class MeuCampoData extends JFormattedTextField implements MeuComponente {
         }
     }
     
-        public void validaCampo(JFormattedTextField campo){
-        int resultado;
-        String codigo = campo.getText().trim();
-        
-        try{
-            resultado = Integer.parseInt(codigo);
-            this.validacao = true;
-        } catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Campo " + this.getDica() + "só aceita numeros" ,"Informação",JOptionPane.INFORMATION_MESSAGE);
-            this.validacao = false;
-        }
-    }
+//        public void validaCampo(JFormattedTextField campo){
+//        int resultado;
+//        String codigo = campo.getText().trim();
+//        
+//        try{
+//            resultado = Integer.parseInt(codigo);
+//            this.validacao = true;
+//        } catch(Exception ex){
+//            JOptionPane.showMessageDialog(null, "Campo " + this.getDica() + "só aceita numeros" ,"Informação",JOptionPane.INFORMATION_MESSAGE);
+//            this.validacao = false;
+//        }
+//    }
 
     @Override
     public void limpar() {
@@ -58,8 +59,13 @@ public class MeuCampoData extends JFormattedTextField implements MeuComponente {
 
     @Override
     public boolean eValido() {
-        validaCampo(this);
-        return validacao;
+        try{
+            sdf.setLenient(false);
+            sdf.parse(getText());
+            return true;
+        } catch(Exception e){
+            return false;
+        }
     }
 
     @Override
@@ -70,5 +76,18 @@ public class MeuCampoData extends JFormattedTextField implements MeuComponente {
     @Override
     public String getDica() {
         return dica;
+    }
+    
+    public void setValor(Date data){
+        setText(sdf.format(data));
+    }
+    
+    public Date getValor(){
+        try{
+            return sdf.parse(getText());
+        } catch(Exception e){
+            System.out.println("Não foi possibel obter o valor do MeuCampoData");
+            return null;
+        }
     }
 }
