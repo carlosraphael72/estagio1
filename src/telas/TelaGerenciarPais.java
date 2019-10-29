@@ -21,37 +21,12 @@ public class TelaGerenciarPais extends TelaCadastro{
     
     public TelaGerenciarPais(){
         super("Tela Gerenciamendo de Pais");
-        adicionaComponente();
+        adicionaCampo(1,1, campoPais);
+        adicionaCampo(3,1, campoSigla);
         
         pack();
     }
     
-    public void adicionaComponente(){
-        
-        //Label do campo pais
-        JLabel jlPais = new JLabel(campoPais.getDica());
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        jpComponentes.add(jlPais, gbc);
-        
-        //Campo pais
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        jpComponentes.add(campoPais, gbc);
-        
-        //Label sigla
-        JLabel jlSigla = new JLabel(campoSigla.getDica());
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        jpComponentes.add(jlSigla, gbc);
-        
-        //Campo Sigla
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        jpComponentes.add(campoSigla, gbc);
-        
-
-    }
     
 
 }

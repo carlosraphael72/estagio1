@@ -13,19 +13,8 @@ public class TelaGerenciarCategoria extends TelaCadastro {
     
     public TelaGerenciarCategoria(){
         super("Gerenciar Categoria");
-        adicionaComponente();
+       adicionaCampo(1, 1, campoNome);
         
         pack();
-    }
-    
-    public void adicionaComponente(){
-        JLabel jlNome = new JLabel(campoNome.getDica());
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        jpComponentes.add(jlNome, gbc);
-        
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        jpComponentes.add(campoNome, gbc);
     }
 }

@@ -7,10 +7,9 @@ import componentes.MeuCampoCPF;
 import componentes.MeuCampoData;
 import componentes.MeuCampoTelefone;
 import componentes.MeuCampoTexto;
+import componentes.MeuComboBox;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 
 /**
  *
@@ -19,10 +18,10 @@ import javax.swing.JLabel;
 public class TelaGerenciarPessoa extends TelaCadastro {
     //Pessoa
     private MeuCampoTexto campoEndereco = new MeuCampoTexto(20, true, "Endereço");
-    private MeuCampoTexto campoBairro = new MeuCampoTexto(5, true, "Bairro");
+    private MeuCampoTexto campoBairro = new MeuCampoTexto(10, true, "Bairro");
     private MeuCampoTexto campoComplemento = new MeuCampoTexto(10, true, "Complemento");
     private MeuCampoCEP campoCEP = new MeuCampoCEP(true, "CEP");
-    private JComboBox comboCidade = new JComboBox();
+    private MeuComboBox comboCidade = new MeuComboBox(true, "Cidade");
     private MeuCampoTelefone campoTelefone1 = new MeuCampoTelefone(true, "Telefone 1");
     private MeuCampoTelefone campoTelefone2 = new MeuCampoTelefone(false, "Telefone 2");
     private MeuCampoTexto campoEmail = new MeuCampoTexto(20, true, "Email");
@@ -44,6 +43,29 @@ public class TelaGerenciarPessoa extends TelaCadastro {
     
     public TelaGerenciarPessoa(){
         super("Gerenciar Pessoa");
+        //Pessoa Fisica
+        adicionaCampo(1,2, campoNome);
+        adicionaCampo(3,2, campoDataNascimento);
+        adicionaCampo(5,2, campoCPF);
+        adicionaCampo(7,2, campoMae);
+        
+        //Pessoa Juridica
+        adicionaCampo(1,3, campoRazaoSocial);
+        adicionaCampo(3,3, campoFantasia);
+        adicionaCampo(5,3, campoCNPJ);
+        adicionaCampo(7,3, campoInscricaoEstadual);
+        
+        //Pessoa
+        adicionaCampo(1,4, campoEndereco);
+        adicionaCampo(3,4, campoBairro);
+        adicionaCampo(5,4, campoComplemento);
+        adicionaCampo(7,4, campoCEP);
+        adicionaCampo(1,5, comboCidade);
+        adicionaCampo(3,5, campoTelefone1);
+        adicionaCampo(5,5, campoTelefone2);
+        adicionaCampo(7,5, campoEmail);
+        adicionaCampo(1,6, campoDataInclusao);
+        
         adicionaComponente();
         
         habilitaCampos(false);
@@ -51,179 +73,32 @@ public class TelaGerenciarPessoa extends TelaCadastro {
     }
     
     public void adicionaComponente(){
-        JLabel jlEndereco = new JLabel(campoEndereco.getDica());
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        jpComponentes.add(jlEndereco, gbc);
-        
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        jpComponentes.add(campoEndereco, gbc);
-        
-        JLabel jlBairro = new JLabel(campoBairro.getDica());
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        jpComponentes.add(jlBairro, gbc);
-        
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        jpComponentes.add(campoBairro, gbc);
-        
-        JLabel jlComplemento = new JLabel(campoComplemento.getDica());
-        gbc.gridx = 4;
-        gbc.gridy = 1;
-        jpComponentes.add(jlComplemento, gbc);
-        
-        gbc.gridx = 5;
-        gbc.gridy = 1;
-        jpComponentes.add(campoComplemento, gbc);
-        
-        JLabel jlCEP = new JLabel(campoCEP.getDica());
-        gbc.gridx = 6;
-        gbc.gridy = 1;
-        jpComponentes.add(jlCEP, gbc);
-        
-        gbc.gridx = 7;
-        gbc.gridy = 1;
-        jpComponentes.add(campoCEP, gbc);
-        
-        JLabel jlCidade = new JLabel("Cidade");
-        gbc.gridx = 8;
-        gbc.gridy = 1;
-        jpComponentes.add(jlCidade, gbc);
-        
-        gbc.gridx = 9;
-        gbc.gridy = 1;
-        jpComponentes.add(comboCidade, gbc);
-        
-        JLabel jlTelefone1 = new JLabel(campoTelefone1.getDica());
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        jpComponentes.add(jlTelefone1, gbc);
-        
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        jpComponentes.add(campoTelefone1, gbc);
-        
-        JLabel jlTelefone2 = new JLabel(campoTelefone2.getDica());
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        jpComponentes.add(jlTelefone2, gbc);
-        
-        gbc.gridx = 3;
-        gbc.gridy = 2;
-        jpComponentes.add(campoTelefone2, gbc);
-        
-        JLabel jlEmail = new JLabel(campoEmail.getDica());
-        gbc.gridx = 4;
-        gbc.gridy = 2;
-        jpComponentes.add(jlEmail, gbc);
-        
-        gbc.gridx = 5;
-        gbc.gridy = 2;
-        jpComponentes.add(campoEmail, gbc);
-        
-        JLabel jlDataInclusao = new JLabel(campoDataInclusao.getDica());
-        gbc.gridx = 6;
-        gbc.gridy = 2;
-        jpComponentes.add(jlDataInclusao, gbc);
-        
-        gbc.gridx = 7;
-        gbc.gridy = 2;
-        jpComponentes.add(campoDataInclusao, gbc);
-        
         //Tipo de Pessoa
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         jpComponentes.add(jcbPessoaFisica, gbc);
         jcbPessoaFisica.addActionListener(this);
         
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         jpComponentes.add(jcbPessoaJuridica, gbc);
         jcbPessoaJuridica.addActionListener(this);
         
         //Pessoa Fisica
-        JLabel jlNome = new JLabel(campoNome.getDica());
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        jpComponentes.add(jlNome, gbc);
-            
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        jpComponentes.add(campoNome, gbc);
+
         campoNome.habilitar(false);
-        
-        JLabel jlDataNascimento = new JLabel(campoDataNascimento.getDica());
-        gbc.gridx = 2;
-        gbc.gridy = 4;
-        jpComponentes.add(jlDataNascimento, gbc);
-        
-        gbc.gridx = 3;
-        gbc.gridy = 4;
-        jpComponentes.add(campoDataNascimento, gbc);
         campoDataNascimento.habilitar(false);
-        
-        JLabel jlCPF = new JLabel(campoCPF.getDica());
-        gbc.gridx = 4;
-        gbc.gridy = 4;
-        jpComponentes.add(jlCPF, gbc);
-        
-        gbc.gridx = 5;
-        gbc.gridy = 4;
-        jpComponentes.add(campoCPF, gbc);
         campoCPF.habilitar(false);
-        
-        JLabel jlMae = new JLabel(campoMae.getDica());
-        gbc.gridx = 6;
-        gbc.gridy = 4;
-        jpComponentes.add(jlMae, gbc);
-        
-        gbc.gridx = 7;
-        gbc.gridy = 4;
-        jpComponentes.add(campoMae, gbc);
         campoMae.habilitar(false);
         
         //Pessoa Juridica
-        JLabel jlRazaoSocial = new JLabel(campoRazaoSocial.getDica());
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        jpComponentes.add(jlRazaoSocial, gbc);
-        
-        gbc.gridx = 1;
-        gbc.gridy = 6;
-        jpComponentes.add(campoRazaoSocial, gbc);
+    
         campoRazaoSocial.habilitar(false);
-        
-        JLabel jlFantasia = new JLabel(campoFantasia.getDica());
-        gbc.gridx = 2;
-        gbc.gridy = 6;
-        jpComponentes.add(jlFantasia, gbc);
-        
-        gbc.gridx = 3;
-        gbc.gridy = 6;
-        jpComponentes.add(campoFantasia, gbc);
         campoFantasia.habilitar(false);
-        
-        JLabel jlCNPJ = new JLabel(campoCNPJ.getDica());
-        gbc.gridx = 4;
-        gbc.gridy = 6;
-        jpComponentes.add(jlCNPJ, gbc);
-        
-        gbc.gridx = 5;
-        gbc.gridy = 6;
-        jpComponentes.add(campoCNPJ, gbc);
         campoCNPJ.habilitar(false);
-        
-        JLabel jlInscricaoEstadual = new JLabel(campoInscricaoEstadual.getDica());
-        gbc.gridx = 6;
-        gbc.gridy = 6;
-        jpComponentes.add(jlInscricaoEstadual, gbc);
-        
-        gbc.gridx = 7;
-        gbc.gridy = 6;
-        jpComponentes.add(campoInscricaoEstadual, gbc);
         campoInscricaoEstadual.habilitar(false);
+        
+        
     }
     
     public void actionPerformed(ActionEvent ae){

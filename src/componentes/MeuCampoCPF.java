@@ -14,6 +14,7 @@ public class MeuCampoCPF extends JFormattedTextField implements MeuComponente {
     
     public MeuCampoCPF(boolean obrigatorio, String dica){
         try{
+            setColumns(10);
            this.obrigatorio = obrigatorio;
            this.dica = dica;
            MaskFormatter mf = new MaskFormatter("###.###.###-##");

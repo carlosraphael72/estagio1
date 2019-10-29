@@ -28,7 +28,7 @@ public class MeuCampoNumero extends JTextField implements MeuComponente {
             resultado = Integer.parseInt(codigo);
             this.validacao = true;
         } catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Campo " + this.getDica() + "só aceita numeros" ,"Informação",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Campo " + this.getDica() + " só aceita numeros" ,"Informação",JOptionPane.INFORMATION_MESSAGE);
             this.validacao = false;
         }
     }

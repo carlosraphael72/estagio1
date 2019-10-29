@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -41,7 +43,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     private JCheckBox jcbInativo = new JCheckBox("Inativo");
     public GridBagConstraints gbc = new GridBagConstraints();
     
-    private List<MeuComponente> campos = new ArrayList();
+    public List<MeuComponente> campos = new ArrayList();
     
     
     public TelaCadastro(String titulo){
@@ -58,7 +60,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         adicionaBotao(jbConfirmar);
         adicionaBotao(jbCancelar);
         
-        adicionaCheckBox();
+       // adicionaCheckBox();
         
         pack();
         setVisible(true);
@@ -72,8 +74,8 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         botao.addActionListener(this);
     }
     
-    public void adicionaCheckBox(){
-        gbc.fill = GridBagConstraints.BOTH;
+    public void adicionaCampo(int x, int y, /*int largura, int altura*/ MeuComponente componente){
+       // gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.WEST;
         
         gbc.gridx = 0;
@@ -86,6 +88,22 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         jpComponentes.add(jcbInativo, gbc);
         jcbInativo.addActionListener(this);
         
+       String texto = componente.getDica();
+       JLabel jlTexto =  new JLabel(texto);
+      
+       
+       gbc.gridx = x-1;
+       gbc.gridy = y;
+       jpComponentes.add(jlTexto, gbc);
+       
+       gbc.gridx = x;
+       gbc.gridy = y;
+      // gbc.gridwidth = largura;
+       //gbc.gridheight = altura;
+       jpComponentes.add((JComponent) componente, gbc);
+       campos.add(componente);
+       
+       
     }
     
     public void habilitaBotoes(){

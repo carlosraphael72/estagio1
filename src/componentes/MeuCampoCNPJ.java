@@ -14,6 +14,7 @@ public class MeuCampoCNPJ extends JFormattedTextField implements MeuComponente {
     
     public MeuCampoCNPJ(boolean obrigatorio, String dica){
         try{
+            setColumns(12);
             this.obrigatorio = obrigatorio;
             this.dica = dica;
             MaskFormatter mf = new MaskFormatter("##.###.###/####-##");
