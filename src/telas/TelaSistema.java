@@ -67,6 +67,7 @@ public class TelaSistema extends JFrame implements ActionListener {
         jmGerenciamento.add(jmiCliente);
         jmGerenciamento.add(jmiFornecedor);
         jmGerenciamento.add(jmiUsuario);
+        jmGerenciamento.add(jmiCaixa);
         
         jmiPais.addActionListener(this);
         jmiUF.addActionListener(this);
@@ -79,6 +80,7 @@ public class TelaSistema extends JFrame implements ActionListener {
         jmiCliente.addActionListener(this);
         jmiFornecedor.addActionListener(this);
         jmiUsuario.addActionListener(this);
+        jmiCaixa.addActionListener(this);
         setVisible(true);
     }
 
@@ -128,6 +130,8 @@ public class TelaSistema extends JFrame implements ActionListener {
             
             TelaGerenciarUsuario telaUsuario = new TelaGerenciarUsuario();
         
+        } else if (ae.getSource() == jmiCaixa){
+            TelaCaixa telaCaixa = new TelaCaixa();
         }
       
 }
