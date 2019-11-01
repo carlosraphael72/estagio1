@@ -31,6 +31,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     
     private int estadoTela = PADRAO;
     private boolean temDadosNaTela = false;
+    public String status;
     public JPanel jpComponentes = new JPanel();
     private JPanel jpBotoes = new JPanel();
     private JButton jbIncluir = new JButton("Incluir");
@@ -39,8 +40,8 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     private JButton jbConsultar = new JButton("Consultar");
     private JButton jbConfirmar = new JButton("Confirmar");
     private JButton jbCancelar = new JButton("Cancelar");
-    private JCheckBox jcbAtivo = new JCheckBox("Ativo");
-    private JCheckBox jcbInativo = new JCheckBox("Inativo");
+    public JCheckBox jcbAtivo = new JCheckBox("Ativo");
+    public JCheckBox jcbInativo = new JCheckBox("Inativo");
     public GridBagConstraints gbc = new GridBagConstraints();
     
     public List<MeuComponente> campos = new ArrayList();
@@ -106,6 +107,16 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
        
     }
     
+//    public void getAtivo(){
+//        if(jcbAtivo.isSelected()){
+//           this.status = "ATIVO";
+//           
+//        } else if(jcbInativo.isSelected()){
+//            this.status = "INATIVO";
+//            
+//        }
+//    }
+    
     public void habilitaBotoes(){
         jbIncluir.setEnabled(estadoTela == PADRAO);
         jbAlterar.setEnabled(estadoTela == PADRAO && temDadosNaTela);
@@ -163,9 +174,11 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
             cancelar();
         } else if(ae.getSource() == jcbAtivo){
             jcbInativo.setSelected(false);
+            this.status = "ATIVO";
             
         } else if(ae.getSource() == jcbInativo){
             jcbAtivo.setSelected(false);
+            this.status = "INATIVO";
         }
         else{
             System.out.println("Fonte do ActionListener não reconhecida");
@@ -197,8 +210,14 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
             return;
         }
         if(estadoTela == INCLUINDO){
+            JOptionPane.showConfirmDialog(this, "Deseja realmente salvar?", "Atenção", JOptionPane.YES_NO_OPTION);
+            int opcao = 0;
+            if(opcao == JOptionPane.YES_OPTION){
             incluirBD();
             temDadosNaTela = true;
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao confirmar");
+            }
         }
         if(estadoTela == EXCLUINDO){
             JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?", "Atenção", JOptionPane.YES_NO_OPTION
