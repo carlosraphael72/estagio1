@@ -14,9 +14,12 @@ import pojo.Pais;
  */
 public class DaoPais {
     private Pais pais;
-    private final String SQLINCLUIR = "INSERT INTO PAIS VALUES (?,?,?,?)";
+    private final String SQLINCLUIR = "INSERT INTO PAIS (NOME, SIGLA, ATIVO) VALUES (?,?,?)";
     private final String SQLALTERAR = "UPDATE PAIS SET NOME = ?, SIGLA = ?, ATIVO = ? WHERE CODIGOPAIS = ?";
     private final String SQLEXCLUIR = "DELETE FROM PAIS WHERE CODIGOPAIS = ?";
+    public static final String SQLCONSULTAR = "SELECT * FROM PAIS WHERE CODIGOPAIS = ?";
+    public static final String SQLSELECT = "SELECT * FROM PAIS";
+    public static final String SQLCOMBOBOX = ""
     
     public DaoPais(Pais pais){
         this.pais = pais;
@@ -25,10 +28,10 @@ public class DaoPais {
     public boolean incluir(){
         try{
             PreparedStatement ps = Conexao.getConexao().prepareStatement(SQLINCLUIR);
-            ps.setInt(1, pais.getCodigo());
-            ps.setString(2, pais.getNome());
-            ps.setString(3, pais.getSigla());
-            ps.setString(4, pais.getAtivo());
+           // ps.setInt(1, pais.getCodigo());
+            ps.setString(1, pais.getNome());
+            ps.setString(2, pais.getSigla());
+            ps.setString(3, pais.getAtivo());
             ps.executeUpdate();
             return true;
             
@@ -71,7 +74,7 @@ public class DaoPais {
     
     public boolean consultar(){
         try{
-            PreparedStatement ps = Conexao.getConexao().prepareStatement(SQLEXCLUIR);
+            PreparedStatement ps = Conexao.getConexao().prepareStatement(SQLCONSULTAR);
             ps.setInt(1, pais.getCodigo());
             ResultSet rs = ps.executeQuery();
             if(rs.next()){

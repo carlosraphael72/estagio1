@@ -1,6 +1,7 @@
 
 package telas;
 
+import componentes.MeuCampoCodigo;
 import componentes.MeuComponente;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -30,7 +31,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     private final int CONSULTANDO = 4;
     
     private int estadoTela = PADRAO;
-    private boolean temDadosNaTela = false;
+    public boolean temDadosNaTela = false;
     public String status;
     public JPanel jpComponentes = new JPanel();
     private JPanel jpBotoes = new JPanel();
@@ -46,6 +47,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     
     public List<MeuComponente> campos = new ArrayList();
     
+           MeuCampoCodigo campoCodigo = new MeuCampoCodigo();
     
     public TelaCadastro(String titulo){
         // super(titulo, redimensionado, fechado, maximizado, iconeficado);
@@ -67,6 +69,8 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         setVisible(true);
         TelaSistema.jdp.add(this);
         habilitaBotoes();
+//        jcbAtivo.setEnabled(false);
+//        jcbInativo.setEnabled(false);
        // habilitaCampos(false);
     }
     
@@ -76,7 +80,8 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     }
     
     public void adicionaCampo(int x, int y, /*int largura, int altura*/ MeuComponente componente){
-       // gbc.fill = GridBagConstraints.BOTH;
+
+        // gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.WEST;
         
         gbc.gridx = 0;
@@ -89,7 +94,21 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         jpComponentes.add(jcbInativo, gbc);
         jcbInativo.addActionListener(this);
         
+        JLabel jlCodigo = new JLabel("Codigo");
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        jpComponentes.add(jlCodigo, gbc);
+        
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        jpComponentes.add(campoCodigo, gbc);
+        
        String texto = componente.getDica();
+       if (componente.eObrigatorio()){
+        texto = "<html><body>" + texto + "<font color=\"red\">*</font>: ";
+    }else{
+    texto = texto + ": ";
+    }
        JLabel jlTexto =  new JLabel(texto);
       
        
@@ -107,23 +126,25 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
        
     }
     
-//    public void getAtivo(){
-//        if(jcbAtivo.isSelected()){
-//           this.status = "ATIVO";
-//           
-//        } else if(jcbInativo.isSelected()){
-//            this.status = "INATIVO";
-//            
-//        }
-//    }
+    public void getStatus(String ativo){
+        if(ativo == "ATIVO"){
+            jcbAtivo.setSelected(true);
+            jcbInativo.setSelected(false);
+        } else {
+            jcbInativo.setSelected(true);
+            jcbAtivo.setSelected(false);
+        }
+    }
     
     public void habilitaBotoes(){
         jbIncluir.setEnabled(estadoTela == PADRAO);
-        jbAlterar.setEnabled(estadoTela == PADRAO && temDadosNaTela);
-        jbExcluir.setEnabled(estadoTela == PADRAO && temDadosNaTela);
+        jbAlterar.setEnabled(estadoTela != PADRAO && temDadosNaTela);
+        jbExcluir.setEnabled(estadoTela != PADRAO && temDadosNaTela);
         jbConsultar.setEnabled(estadoTela == PADRAO);
         jbConfirmar.setEnabled(estadoTela != PADRAO);
         jbCancelar.setEnabled(estadoTela != PADRAO);
+        jcbAtivo.setEnabled(estadoTela != PADRAO);
+        jcbInativo.setEnabled(estadoTela != PADRAO);
     }
     
     public void habilitaCampos(boolean status){
@@ -136,6 +157,8 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         for(int i=0; i < campos.size(); i++){
             campos.get(i).limpar();
         }
+        jcbAtivo.setSelected(false);
+        jcbInativo.setSelected(false);
     }
     
     public boolean verificaCampos(){
@@ -202,10 +225,10 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     }
     public void consultar(){
         estadoTela = CONSULTANDO;
-        habilitaBotoes();
+        
     }
     public void confirmar(){
-        estadoTela = PADRAO;
+        
         if(!verificaCampos()){
             return;
         }
@@ -214,20 +237,30 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
             int opcao = 0;
             if(opcao == JOptionPane.YES_OPTION){
             incluirBD();
-            temDadosNaTela = true;
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao confirmar");
+            limpaCampos();
+            temDadosNaTela = false;
             }
-        }
-        if(estadoTela == EXCLUINDO){
-            JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?", "Atenção", JOptionPane.YES_NO_OPTION
-            );
+        } else if(estadoTela == EXCLUINDO){
+            JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?", "Atenção", JOptionPane.YES_NO_OPTION);
             int opcao = 0;
             if(opcao == JOptionPane.YES_OPTION){
+                excluirBD();
                 limpaCampos();
                 temDadosNaTela = false;
             }
-        }
+        } else if(estadoTela == ALTERANDO){
+            JOptionPane.showConfirmDialog(this, "Deseja realmente salvar a alteração?", "Atenção", JOptionPane.YES_NO_OPTION);
+            int opcao = 0;
+            if(opcao == JOptionPane.YES_OPTION){
+              alterarBD();
+              limpaCampos();
+              temDadosNaTela = false;  
+            }
+        } else {
+                JOptionPane.showMessageDialog(this, "Erro ao confirmar");
+            }
+        
+        estadoTela = PADRAO;
         habilitaCampos(false);
         habilitaBotoes();
     }
@@ -239,6 +272,12 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     }
     
     public void incluirBD(){
+        //Esse metodo será definido nas sub-classes
+    }
+    public void alterarBD(){
+        //Esse metodo será definido nas sub-classes
+    }
+    public void excluirBD(){
         //Esse metodo será definido nas sub-classes
     }
     public void preencherDados(int id){
