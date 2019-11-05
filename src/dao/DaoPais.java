@@ -19,7 +19,7 @@ public class DaoPais {
     private final String SQLEXCLUIR = "DELETE FROM PAIS WHERE CODIGOPAIS = ?";
     public static final String SQLCONSULTAR = "SELECT * FROM PAIS WHERE CODIGOPAIS = ?";
     public static final String SQLSELECT = "SELECT * FROM PAIS";
-    public static final String SQLCOMBOBOX = ""
+    public static final String SQLCOMBOBOX = "SELECT CODIGOPAIS, SIGLA FROM PAIS ORDER BY SIGLA";
     
     public DaoPais(Pais pais){
         this.pais = pais;

@@ -9,6 +9,7 @@ public class UF {
     private int codigo;
     private String nome;
     private String sigla;
+    private String ativo;
     private Pais pais = new Pais();
 
     public int getCodigo() {
@@ -41,6 +42,14 @@ public class UF {
 
     public void setPais(Pais pais) {
         this.pais = pais;
+    }
+
+    public String getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
     }
     
     
