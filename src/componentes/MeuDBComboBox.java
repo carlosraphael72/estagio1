@@ -14,7 +14,7 @@ public class MeuDBComboBox extends JComboBox implements MeuComponente {
     private String sql;
     private boolean obrigatorio;
     private String dica;
-    private List<Integer> pks = new ArrayList();
+    public List<Integer> pks = new ArrayList();
     
     public MeuDBComboBox(String sql, boolean obrigatorio, String dica){
         this.sql = sql;

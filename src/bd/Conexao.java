@@ -23,7 +23,7 @@ public class Conexao {
             Class.forName("org.firebirdsql.jdbc.FBDriver");
           Connection  conexao =  DriverManager.getConnection("jdbc:firebirdsql://127.0.0.1/D:/innove/INNOVE1.FDB", "SYSDBA", "masterkey");
             return conexao;
-            //System.out.println("Conexão realizada com sucesso");
+           // System.out.println("Conexão realizada com sucesso");
            // JOptionPane.showMessageDialog(null, "Conexão realizada com sucesso");
        
         
@@ -78,8 +78,7 @@ public class Conexao {
             Statement st = getConexao().createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                String[] linha
-                        = new String[rs.getMetaData().getColumnCount()];
+                String[] linha = new String[rs.getMetaData().getColumnCount()];
                 for (int coluna = 1;
                         coluna <= rs.getMetaData().getColumnCount();
                         coluna++) {

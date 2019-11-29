@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 //import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -18,6 +21,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,6 +41,7 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     public String status;
     public JPanel jpComponentes = new JPanel();
     private JPanel jpBotoes = new JPanel();
+    private JPanel jpTabela = new JPanel();
     private JButton jbIncluir = new JButton("Incluir");
     private JButton jbAlterar = new JButton("Alterar");
     private JButton jbExcluir = new JButton("Excluir");
@@ -47,19 +54,26 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     
     public List<MeuComponente> campos = new ArrayList();
     
-           MeuCampoCodigo campoCodigo = new MeuCampoCodigo();
+    private JScrollPane scroll = new JScrollPane();
+    
+    private DefaultTableModel dtm;
+    private JTable tabela;
+    public String[][] dados = {};
+    
+
     
     public TelaCadastro(String titulo){
         // super(titulo, redimensionado, fechado, maximizado, iconeficado);
         super(titulo, false, true, false, false);
-        getContentPane().add(jpComponentes);
+        getContentPane().add("North", jpComponentes);
         jpComponentes.setLayout(new GridBagLayout());
-        getContentPane().add("South", jpBotoes);
+        getContentPane().add("Center", jpBotoes);
         jpBotoes.setLayout(new GridLayout(1, 6));
+        getContentPane().add("South", jpTabela);
         adicionaBotao(jbIncluir);
         adicionaBotao(jbAlterar);
         adicionaBotao(jbExcluir);
-        adicionaBotao(jbConsultar);
+       // adicionaBotao(jbConsultar);
         adicionaBotao(jbConfirmar);
         adicionaBotao(jbCancelar);
         
@@ -72,6 +86,11 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
 //        jcbAtivo.setEnabled(false);
 //        jcbInativo.setEnabled(false);
        // habilitaCampos(false);
+    }
+    
+    public void adicionaTabela(JTable jt){
+        scroll.setViewportView(jt);
+        this.getContentPane().add("South", scroll);
     }
     
     public void adicionaBotao(JButton botao){
@@ -94,14 +113,14 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         jpComponentes.add(jcbInativo, gbc);
         jcbInativo.addActionListener(this);
         
-        JLabel jlCodigo = new JLabel("Codigo");
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        jpComponentes.add(jlCodigo, gbc);
-        
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        jpComponentes.add(campoCodigo, gbc);
+//        JLabel jlCodigo = new JLabel("Codigo");
+//        gbc.gridx = 0;
+//        gbc.gridy = 1;
+//        jpComponentes.add(jlCodigo, gbc);
+//        
+//        gbc.gridx = 1;
+//        gbc.gridy = 1;
+//        jpComponentes.add(campoCodigo, gbc);
         
        String texto = componente.getDica();
        if (componente.eObrigatorio()){
@@ -130,19 +149,21 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
         if(ativo == "ATIVO"){
             jcbAtivo.setSelected(true);
             jcbInativo.setSelected(false);
-        } else {
+        } else if(ativo == "INATIVO") {
             jcbInativo.setSelected(true);
             jcbAtivo.setSelected(false);
+        } else{
+            System.out.println("Bug no ATIVO/INATIVO");
         }
     }
     
     public void habilitaBotoes(){
-        jbIncluir.setEnabled(estadoTela == PADRAO);
-        jbAlterar.setEnabled(estadoTela != PADRAO && temDadosNaTela);
-        jbExcluir.setEnabled(estadoTela != PADRAO && temDadosNaTela);
-        jbConsultar.setEnabled(estadoTela == PADRAO);
-        jbConfirmar.setEnabled(estadoTela != PADRAO);
-        jbCancelar.setEnabled(estadoTela != PADRAO);
+        jbIncluir.setEnabled(estadoTela == PADRAO || estadoTela == CONSULTANDO);
+        jbAlterar.setEnabled(estadoTela == PADRAO && temDadosNaTela || estadoTela == CONSULTANDO && temDadosNaTela);
+        jbExcluir.setEnabled(estadoTela == PADRAO && temDadosNaTela || estadoTela == CONSULTANDO);
+        jbConsultar.setEnabled(estadoTela == PADRAO || estadoTela == CONSULTANDO);
+        jbConfirmar.setEnabled(estadoTela != PADRAO && estadoTela != CONSULTANDO);
+        jbCancelar.setEnabled(estadoTela != PADRAO && estadoTela != CONSULTANDO);
         jcbAtivo.setEnabled(estadoTela != PADRAO);
         jcbInativo.setEnabled(estadoTela != PADRAO);
     }
@@ -233,24 +254,21 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
             return;
         }
         if(estadoTela == INCLUINDO){
-            JOptionPane.showConfirmDialog(this, "Deseja realmente salvar?", "Atenção", JOptionPane.YES_NO_OPTION);
-            int opcao = 0;
+           int opcao =  JOptionPane.showConfirmDialog(this, "Deseja realmente salvar?", "Atenção", JOptionPane.YES_NO_OPTION);
             if(opcao == JOptionPane.YES_OPTION){
             incluirBD();
             limpaCampos();
             temDadosNaTela = false;
             }
         } else if(estadoTela == EXCLUINDO){
-            JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?", "Atenção", JOptionPane.YES_NO_OPTION);
-            int opcao = 0;
+           int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?", "Atenção", JOptionPane.YES_NO_OPTION);
             if(opcao == JOptionPane.YES_OPTION){
                 excluirBD();
                 limpaCampos();
                 temDadosNaTela = false;
             }
         } else if(estadoTela == ALTERANDO){
-            JOptionPane.showConfirmDialog(this, "Deseja realmente salvar a alteração?", "Atenção", JOptionPane.YES_NO_OPTION);
-            int opcao = 0;
+          int opcao = JOptionPane.showConfirmDialog(this, "Deseja realmente salvar a alteração?", "Atenção", JOptionPane.YES_NO_OPTION);
             if(opcao == JOptionPane.YES_OPTION){
               alterarBD();
               limpaCampos();
@@ -282,5 +300,38 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     }
     public void preencherDados(int id){
         //Esse metodo será definido nas sub-classes
+    }
+    public void criarTabela(){
+        
+    }
+    
+    
+    public JTable getTabela(){
+        tabela = new JTable(){
+            @Override
+            public boolean isCellEditable(int linha, int coluna){
+                return false;
+            }
+        };
+        tabela.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent me){
+                if(me.getClickCount() == 2){
+                    if(estadoTela == PADRAO){
+                        preencherDados(Integer.parseInt((String)tabela.getValueAt(tabela.getSelectedRow(), 0)));
+                        temDadosNaTela = true;
+                        habilitaBotoes();
+                    }
+                } else {
+                    tabela.setFocusable(false);
+                }
+            }
+        });
+        return tabela;
+    }
+    
+    public DefaultTableModel getDtm(){
+        dtm = new DefaultTableModel();
+        return dtm;
     }
 }

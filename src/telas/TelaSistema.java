@@ -31,20 +31,11 @@ public class TelaSistema extends JFrame implements ActionListener {
     private JMenuItem jmiFornecedor = new JMenuItem("Gerenciar Fornecedores");
     private JMenuItem jmiUsuario = new JMenuItem("Gerenciar Usuários");
     
-  //  private JMenu jmMovimentacao = new JMenu("Movimentações");
-   // private JMenuItem jmiEstoque = new JMenuItem("Estoque");
-    private JMenuItem jmiCaixa = new JMenuItem("Caixa");
-   // private JMenuItem jmiMovimentacaoCaixa = new JMenuItem("Movimentação Caixa");
-    private JMenuItem jmiVenda = new JMenuItem("Venda");
-  //  private JMenuItem jmiItensVenda = new JMenuItem("Itens da Venda");
+    private JMenu jmFinanceiro = new JMenu("Movimentações");
+
+    private JMenuItem jmiCaixa = new JMenuItem("Caixa");  
     private JMenuItem jmiContasReceber = new JMenuItem("Contas a Receber");
-   // private JMenuItem jmiParcelaReceber = new JMenuItem("Parcela a Receber");
-    private JMenuItem jmiRecebimento = new JMenuItem("Recebimento");
-    private JMenuItem jmiCompra = new JMenuItem("Compra");
-  //  private JMenuItem jmiItensCompra = new JMenuItem("Itens da Compra");
     private JMenuItem jmiContasPagar = new JMenuItem("Contas a Pagar");
-  //  private JMenuItem jmiParcelaPagar = new JMenuItem("Parcelas a Pagar");
-    private JMenuItem jmiPagamento = new JMenuItem("Pagamentos");
     
     
     public TelaSistema(){
@@ -54,7 +45,7 @@ public class TelaSistema extends JFrame implements ActionListener {
         getContentPane().add(jdp);
         setJMenuBar(jmb);
         jmb.add(jmGerenciamento);
-        //jmb.add(jmMovimentacao);
+        jmb.add(jmFinanceiro);
         
         jmGerenciamento.add(jmiPais);
         jmGerenciamento.add(jmiUF);
@@ -67,7 +58,9 @@ public class TelaSistema extends JFrame implements ActionListener {
         jmGerenciamento.add(jmiCliente);
         jmGerenciamento.add(jmiFornecedor);
         jmGerenciamento.add(jmiUsuario);
-        jmGerenciamento.add(jmiCaixa);
+        jmFinanceiro.add(jmiCaixa);
+        jmFinanceiro.add(jmiContasReceber);
+        jmFinanceiro.add(jmiContasPagar);
         
         jmiPais.addActionListener(this);
         jmiUF.addActionListener(this);
@@ -81,6 +74,8 @@ public class TelaSistema extends JFrame implements ActionListener {
         jmiFornecedor.addActionListener(this);
         jmiUsuario.addActionListener(this);
         jmiCaixa.addActionListener(this);
+        jmiContasReceber.addActionListener(this);
+        jmiContasPagar.addActionListener(this);
         setVisible(true);
     }
 

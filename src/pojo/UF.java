@@ -1,6 +1,9 @@
 
 package pojo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author PC
@@ -10,7 +13,8 @@ public class UF {
     private String nome;
     private String sigla;
     private String ativo;
-    private Pais pais = new Pais();
+   // private Pais pais = new Pais();
+    private int pais;
 
     public int getCodigo() {
         return codigo;
@@ -36,11 +40,11 @@ public class UF {
         this.sigla = sigla;
     }
 
-    public Pais getPais() {
+    public int getPais() {
         return pais;
     }
 
-    public void setPais(Pais pais) {
+    public void setPais(int pais) {
         this.pais = pais;
     }
 

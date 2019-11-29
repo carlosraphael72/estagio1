@@ -12,11 +12,13 @@ public class MeuCampoNumero extends JTextField implements MeuComponente {
     public boolean obrigatorio;
     private String dica;
     private boolean validacao;
+    public boolean podeHabilitar;
     
-    public MeuCampoNumero(int colunas, boolean obrigatorio, String dica){
+    public MeuCampoNumero(int colunas, boolean obrigatorio, String dica, boolean podeHabilitar){
         super(colunas);
         this.obrigatorio = obrigatorio;
         this.dica = dica;
+        this.podeHabilitar = podeHabilitar;
         
     }
     
@@ -40,7 +42,7 @@ public class MeuCampoNumero extends JTextField implements MeuComponente {
 
     @Override
     public void habilitar(boolean status) {
-        setEnabled(status);
+        setEnabled(status && podeHabilitar);
     }
 
     @Override
