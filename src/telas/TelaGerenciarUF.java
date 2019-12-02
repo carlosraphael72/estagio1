@@ -71,6 +71,7 @@ public class TelaGerenciarUF extends TelaCadastro {
         uf.setNome(campoNome.getText());
         uf.setSigla(campoSigla.getText());
         uf.setAtivo(status);
+        uf.setPais(comboPais.getValor());
         daoUF.alterar();
         criaTabela();
     }

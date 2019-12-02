@@ -8,7 +8,7 @@ import componentes.MeuCampoNumero;
  * @author RAPHAEL
  */
 public class TelaCaixa extends TelaCadastro {
-    private MeuCampoNumero campoSaldoInicial = new MeuCampoNumero(3, true, "Saldo Inicial");
+    private MeuCampoNumero campoSaldoInicial = new MeuCampoNumero(3, true, "Saldo Inicial", true);
     
     public TelaCaixa(){
         super("Caixa");

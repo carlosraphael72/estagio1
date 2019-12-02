@@ -146,15 +146,17 @@ public class TelaCadastro extends JInternalFrame implements ActionListener {
     }
     
     public void getStatus(String ativo){
-        if(ativo == "ATIVO"){
+        this.status = ativo;
+        if(status == "ATIVO"){
             jcbAtivo.setSelected(true);
-            jcbInativo.setSelected(false);
-        } else if(ativo == "INATIVO") {
+//            jcbInativo.setSelected(false);
+        } else if(status == "INATIVO") {
             jcbInativo.setSelected(true);
-            jcbAtivo.setSelected(false);
+//            jcbAtivo.setSelected(false);
         } else{
             System.out.println("Bug no ATIVO/INATIVO");
         }
+        
     }
     
     public void habilitaBotoes(){

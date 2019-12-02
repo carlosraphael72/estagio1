@@ -8,10 +8,10 @@ import componentes.MeuCampoTexto;
  * @author RAPHAEL
  */
 public class TelaGerenciarUsuario extends TelaCadastro {
-    MeuCampoTexto campoPessoa = new MeuCampoTexto(20, true, "Pessoa");
-    MeuCampoTexto campoUsuario = new MeuCampoTexto(10, true, "Usuario");
-    MeuCampoTexto campoSenha = new MeuCampoTexto(10, true, "Senha");
-    MeuCampoTexto campoNivelDeAcesso = new MeuCampoTexto(10, true, "Nivel de Acesso");
+    MeuCampoTexto campoPessoa = new MeuCampoTexto(20, true, "Pessoa", true);
+    MeuCampoTexto campoUsuario = new MeuCampoTexto(10, true, "Usuario", true);
+    MeuCampoTexto campoSenha = new MeuCampoTexto(10, true, "Senha", true);
+    MeuCampoTexto campoNivelDeAcesso = new MeuCampoTexto(10, true, "Nivel de Acesso", true);
     
     public TelaGerenciarUsuario(){
         super("Gerenciar Usuario");

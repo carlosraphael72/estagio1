@@ -17,28 +17,28 @@ import javax.swing.JCheckBox;
  */
 public class TelaGerenciarPessoa extends TelaCadastro {
     //Pessoa
-    private MeuCampoTexto campoEndereco = new MeuCampoTexto(20, true, "Endereço");
-    private MeuCampoTexto campoBairro = new MeuCampoTexto(10, true, "Bairro");
-    private MeuCampoTexto campoComplemento = new MeuCampoTexto(10, true, "Complemento");
+    private MeuCampoTexto campoEndereco = new MeuCampoTexto(20, true, "Endereço", true);
+    private MeuCampoTexto campoBairro = new MeuCampoTexto(10, true, "Bairro", true);
+    private MeuCampoTexto campoComplemento = new MeuCampoTexto(10, true, "Complemento", true);
     private MeuCampoCEP campoCEP = new MeuCampoCEP(true, "CEP");
     private MeuComboBox comboCidade = new MeuComboBox(true, "Cidade");
     private MeuCampoTelefone campoTelefone1 = new MeuCampoTelefone(true, "Telefone 1");
     private MeuCampoTelefone campoTelefone2 = new MeuCampoTelefone(false, "Telefone 2");
-    private MeuCampoTexto campoEmail = new MeuCampoTexto(20, true, "Email");
+    private MeuCampoTexto campoEmail = new MeuCampoTexto(20, true, "Email", true);
     private MeuCampoData campoDataInclusao = new MeuCampoData(true, "Data de inclusão");
     //JCheckBox Tipo de Pessoa
     private JCheckBox jcbPessoaFisica = new JCheckBox("Pessoa Fisica");
     private JCheckBox jcbPessoaJuridica = new JCheckBox("Pessoa Jurídica");
     //Pessoa Fisica
-    private MeuCampoTexto campoNome = new MeuCampoTexto(20, true, "Nome");
+    private MeuCampoTexto campoNome = new MeuCampoTexto(20, true, "Nome", true);
     private MeuCampoData campoDataNascimento = new MeuCampoData(true, "Data de nascimento");
     private MeuCampoCPF campoCPF = new MeuCampoCPF(true, "CPF");
-    private MeuCampoTexto campoMae = new MeuCampoTexto(20, true, "Nome da mãe");
+    private MeuCampoTexto campoMae = new MeuCampoTexto(20, true, "Nome da mãe", true);
     //Pessoa Juridica
-    private MeuCampoTexto campoRazaoSocial = new MeuCampoTexto(20, true, "Razão Social");
-    private MeuCampoTexto campoFantasia = new MeuCampoTexto(20, true, "Nome Fantasia");
+    private MeuCampoTexto campoRazaoSocial = new MeuCampoTexto(20, true, "Razão Social", true);
+    private MeuCampoTexto campoFantasia = new MeuCampoTexto(20, true, "Nome Fantasia", true);
     private MeuCampoCNPJ campoCNPJ = new MeuCampoCNPJ(true, "CNPJ");
-    private MeuCampoTexto campoInscricaoEstadual = new MeuCampoTexto(10, true, "Inscrição Estadual");
+    private MeuCampoTexto campoInscricaoEstadual = new MeuCampoTexto(10, true, "Inscrição Estadual", true);
     
     
     public TelaGerenciarPessoa(){

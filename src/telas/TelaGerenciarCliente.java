@@ -9,7 +9,7 @@ import componentes.MeuCampoTexto;
  * @author RAPHAEL
  */
 public class TelaGerenciarCliente extends TelaCadastro {
-    private MeuCampoTexto campoPessoa =  new MeuCampoTexto(20, true, "Pessoa");
+    private MeuCampoTexto campoPessoa =  new MeuCampoTexto(20, true, "Pessoa", true);
     private MeuCampoData campoDataInclusao = new MeuCampoData(true, "Data de inclusão");
     
     public TelaGerenciarCliente(){

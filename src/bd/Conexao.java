@@ -79,8 +79,7 @@ public class Conexao {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 String[] linha = new String[rs.getMetaData().getColumnCount()];
-                for (int coluna = 1;
-                        coluna <= rs.getMetaData().getColumnCount();
+                for (int coluna = 1;coluna <= rs.getMetaData().getColumnCount();
                         coluna++) {
                     linha[coluna - 1] = rs.getString(coluna);
                 }
