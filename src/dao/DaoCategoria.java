@@ -20,6 +20,7 @@ public class DaoCategoria {
     private final String SQLEXCLUIR = "DELETE FROM CATEGORIA WHERE CODIGOCATEGORIA = ?";
     public static final String SQLCONSULTAR = "SELECT CATEGORIA.CODIGOCATEGORIA, CATEGORIA.NOME, CATEGORIA.ATIVO FROM CATEGORIA";
     public static final String SQLSELECT = "SELECT NOME, ATIVO FROM CATEGORIA";
+    public static final String SQLCOMBOBOX = "SELECT CODIGOCATEGORIA, NOME FROM CATEGORIA ORDER BY NOME";
     
     public DaoCategoria(Categoria categoria){
         this.categoria = categoria;

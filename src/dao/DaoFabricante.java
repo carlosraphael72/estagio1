@@ -20,6 +20,7 @@ public class DaoFabricante {
     private final String SQLEXCLUIR = "DELETE FROM FABRICANTE WHERE CODIGOFABRICANTE = ?";
     public static final String SQLCONSULTAR = "SELECT CODIGOFABRICANTE, NOME, ATIVO FROM FABRICANTE";
     public static final String SQLSELECT = "SELECT NOME, ATIVO FROM FABRICANTE";
+    public static final String SQLCOMBOBOX = "SELECT CODIGOFABRICANTE, NOME FROM FABRICANTE ORDER BY NOME";
     
     
     public DaoFabricante(Fabricante fabricante){

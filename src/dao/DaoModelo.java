@@ -24,7 +24,7 @@ public class DaoModelo {
     private final String SQLEXCLUIR = "DELETE FROM MODELO WHERE CODIGOMODELO = ?";
     public static final String SQLCONSULTAR = "SELECT CODIGOMODELO, DESCRICAO, ATIVO FROM MODELO";
     public static final String SQLSELECT = "SELECT DESCRICAO, ATIVO FROM MODELO";
-    
+    public static final String SQLCOMBOBOX = "SELECT CODIGOMODELO, DESCRICAO FROM MODELO ORDER BY DESCRICAO";
     
     public DaoModelo(Modelo modelo){
         this.modelo = modelo;
