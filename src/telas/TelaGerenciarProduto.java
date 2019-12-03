@@ -31,7 +31,7 @@ public class TelaGerenciarProduto extends TelaCadastro {
     private MeuCampoNumero campoValorUnitario = new MeuCampoNumero(2, true, "Valor Unitario", true);
     private MeuCampoData campoData = new MeuCampoData(true, "Data");
     
-    private String[] colunas = new String[]{"Código","Produto","Fabricante","Valor Unitário","Ativo"};
+    private String[] colunas = new String[]{"Código","Produto", "Categoria", "Fabricante", "Modelo", "Valor Unitário","Ativo"};
      private DefaultTableModel dtm;
     private JTable tabela = getTabela();
     
@@ -43,12 +43,12 @@ public class TelaGerenciarProduto extends TelaCadastro {
         criaTabela();
         adicionaCampo(1,1, campoCodigo);
         adicionaCampo(3,1, campoDescricao);
-        adicionaCampo(5,1, campoUnidadeEstoque);
-        adicionaCampo(7,1, campoUnidadeVenda);
-        adicionaCampo(9,1, comboCategoria);
-        adicionaCampo(1,2, comboFabricante);
-        adicionaCampo(3,2, comboModelo);
-        adicionaCampo(5,2, campoValorUnitario);
+       // adicionaCampo(5,1, campoUnidadeEstoque);
+       // adicionaCampo(7,1, campoUnidadeVenda);
+        adicionaCampo(5,1, comboCategoria);
+        adicionaCampo(7,1, comboFabricante);
+        adicionaCampo(1,2, comboModelo);
+        adicionaCampo(3,2, campoValorUnitario);
        // adicionaCampo(7,2, campoData);
         
         pack();

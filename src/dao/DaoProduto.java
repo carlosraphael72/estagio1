@@ -16,10 +16,10 @@ import pojo.Produto;
  */
 public class DaoProduto {
     private Produto produto;
-    private final String SQLINCLUIR = "INSERT INTO PRODUTO (DESCRICAO, CODIGOCATEGORIA, CODIGOFABRICANTE, CODIGOMODELO, VALORUNITARIO, ATIVO) VALUES (?,?,?,?,?,?,?)";
+    private final String SQLINCLUIR = "INSERT INTO PRODUTO (DESCRICAO, CODIGOCATEGORIA, CODIGOFABRICANTE, CODIGOMODELO, VALORUNITARIO, ATIVO) VALUES (?,?,?,?,?,?)";
     private final String SQLALTERAR = "UPDATE PRODUTO SET DESCRICAO = ?, CODIGOCATEGORIA = ?, CODIGOFABRICANTE = ?, CODIGOMODELO = ?, VALORUNITARIO = ?,  ATIVO = ? WHERE CODIGOPRODUTO = ?";
     private final String SQLEXCLUIR = "DELETE FROM PRODUTO WHERE CODIGOPRODUTO = ?";
-    public static final String SQLCONSULTAR = "SELECT PRODUTO.CODIGOPRODUTO, PRODUTO.DESCRICAO, CATEGORIA.CODIGOCATEGORIA, FABRICANTE.CODIGOFABRICANTE, MODELO.CODIGOMODELO, PRODUTO.VALORUNITARIO, PRODUTO.ATIVO FROM PRODUTO INNER JOIN CATEGORIA ON PRODUTO.CODIGOCATEGORIA = CATEGORIA.CODIGOCATEGORIA INNER JOIN FABRICANTE ON PRODUTO.CODIGOFABRICANTE = FABRICANTE.CODIGOFABRICANTE INNER JOIN MODELO ON PRODUTO.CODIGOMODELO = MODELO.CODIGOMODELO";
+    public static final String SQLCONSULTAR = "SELECT PRODUTO.CODIGOPRODUTO, PRODUTO.DESCRICAO, CATEGORIA.NOME, FABRICANTE.NOME, MODELO.DESCRICAO, PRODUTO.VALORUNITARIO, PRODUTO.ATIVO FROM PRODUTO INNER JOIN CATEGORIA ON PRODUTO.CODIGOCATEGORIA = CATEGORIA.CODIGOCATEGORIA INNER JOIN FABRICANTE ON PRODUTO.CODIGOFABRICANTE = FABRICANTE.CODIGOFABRICANTE INNER JOIN MODELO ON PRODUTO.CODIGOMODELO = MODELO.CODIGOMODELO";
     public static final String SQLSELECT = "SELECT PRODUTO.CODIGOPRODUTO, PRODUTO.DESCRICAO, CATEGORIA.CODIGOCATEGORIA, FABRICANTE.CODIGOFABRICANTE, MODELO.CODIGOMODELO, PRODUTO.VALORUNITARIO, PRODUTO.ATIVO FROM PRODUTO INNER JOIN CATEGORIA ON PRODUTO.CODIGOCATEGORIA = CATEGORIA.CODIGOCATEGORIA INNER JOIN FABRICANTE ON PRODUTO.CODIGOFABRICANTE = FABRICANTE.CODIGOFABRICANTE INNER JOIN MODELO ON PRODUTO.CODIGOMODELO = MODELO.CODIGOMODELO";
     public static final String SQLCOMBOBOX = "";
     
@@ -88,11 +88,12 @@ public class DaoProduto {
           //  ps.setInt(1, produto.getCodigo());
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                produto.setDescricao(rs.getString(1));
-                ps.setInt(2, produto.getCategoria());
-                ps.setInt(3, produto.getFabricante());
-                ps.setInt(4, produto.getModelo());
-                ps.setDouble(5, produto.getValorUnitario());
+                produto.setCodigo(rs.getInt(1));
+                produto.setDescricao(rs.getString(2));
+                produto.setCategoria(rs.getInt(3));
+                produto.setFabricante(rs.getInt(4));
+                produto.setModelo(rs.getInt(5));
+                produto.setValorUnitario(rs.getDouble(6));
               //  ps.setDate(6, produto.getDataInclusao());
                 produto.setAtivo(rs.getString(7));
                 
